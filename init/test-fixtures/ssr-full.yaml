@@ -1,4 +1,6 @@
-# Full opt-in: SSR + workers API + Cloudflare TF + GitHub TF + strict lint + spell + i18n + temporal.
+# Full opt-in: SSR + workers API + Cloudflare TF + GitHub TF + spell + i18n.
+# (Strict lint is baseline; lint-strict, pkg-temporal-dates, scripts-content-automation,
+# db-future-d1 recipes were removed in v2 revisions.)
 project_name: full-stack-app
 package_scope: "@acme"
 repo_owner: acme
@@ -11,8 +13,6 @@ apply:
   - infra-terraform-github
   - ci-deploy-ssr
   - ci-terraform
-  - lint-strict
   - lint-cspell
   - i18n-next-intl
-  - pkg-temporal-dates
   - r2-client

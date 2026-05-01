@@ -92,8 +92,14 @@ jobs:
           test ! -f "$TARGET/INIT.md"
           test ! -d "$TARGET/.claude/commands"
           test -f "$TARGET/.bootstrap.yaml"
-          # No remaining {{TOKEN}} placeholders.
-          if grep -r --include='*.json' --include='*.ts' --include='*.tsx' --include='*.mjs' --include='*.css' --include='*.toml' --include='*.tf' --include='*.yml' '{{[A-Z_]\+}}' "$TARGET"; then
+          # Grep for unsubstituted PLACEHOLDER tokens. The CI workflow itself contains
+          # the literal pattern as the search regex, so exclude it from the scan.
+          if grep -r --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=.turbo \
+              --exclude-dir=.velite --exclude=ci.yml \
+              --include='*.json' --include='*.ts' --include='*.tsx' --include='*.mjs' \
+              --include='*.css' --include='*.toml' --include='*.tf' --include='*.yml' \
+              --include='*.md' --include='*.mdx' \
+              -E '\{\{[A-Z_]+\}\}' "$TARGET"; then
             echo "Unsubstituted placeholder leak"; exit 1
           fi
 
