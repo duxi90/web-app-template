@@ -534,14 +534,47 @@ async function main(): Promise<void> {
   if (!args.inPlace) {
     console.log("→ copying baseline…");
     copyBaseline(seedRoot, target, subs, !args.blank);
+    if (args.blank) {
+      console.log("→ --blank: removing demo content from target…");
+      for (const p of [
+        "packages/content/posts/hello-world.md",
+        "packages/content/posts/hello-world.mdx",
+        "packages/ui/src/components",
+        "packages/ui/components.json",
+      ]) {
+        rmSync(join(target, p), { recursive: true, force: true });
+      }
+    }
   } else if (args.blank) {
-    console.log("→ --blank --in-place: removing baseline app…");
-    rmSync(join(target, "apps/web-static"), { recursive: true, force: true });
-    rmSync(join(target, "packages/content/posts/hello-world.md"), { force: true });
-    rmSync(join(target, "packages/content/posts/hello-world.mdx"), { force: true });
+    console.log("→ --blank --in-place: removing baseline app + ui components + sample post…");
+    for (const p of [
+      "apps/web-static",
+      "packages/content/posts/hello-world.md",
+      "packages/content/posts/hello-world.mdx",
+      "packages/ui/src/components",
+      "packages/ui/components.json",
+    ]) {
+      rmSync(join(target, p), { recursive: true, force: true });
+    }
   }
 
+  // Recipe-specific pre-strip: when a recipe replaces a baseline subsystem,
+  // the old files should not survive. Recipes don't yet declare a `removes`
+  // list, so this is a small static map until they do.
+  const preStrip: Record<string, string[]> = {
+    "content-mdx-only": [
+      "packages/content/velite.config.ts",
+      "packages/content/posts/hello-world.md",
+      "packages/content/posts/hello-world.mdx",
+      "packages/content/.velite",
+    ],
+    "ui-tailwind-only": ["packages/ui/src/components", "packages/ui/components.json"],
+  };
+
   for (const id of applySet) {
+    if (preStrip[id]) {
+      for (const p of preStrip[id]) rmSync(join(target, p), { recursive: true, force: true });
+    }
     console.log(`→ applying recipe: ${id}`);
     const recipe = loadRecipeManifest(seedRoot, id);
     applyRecipe(seedRoot, target, recipe, subs);

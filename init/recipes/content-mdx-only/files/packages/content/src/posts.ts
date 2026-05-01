@@ -4,4 +4,3 @@
 import type { Post } from "./types";
 
 export const posts: ReadonlyArray<Post> = [];
-export type { Post };
