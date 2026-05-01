@@ -1,0 +1,96 @@
+{
+  "name": "webapp-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Seed repo for Next.js + Cloudflare projects with an AI bootstrap agent",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "bun@1.2.0",
+  "engines": {
+    "bun": ">=1.2.0",
+    "node": ">=22.11.0"
+  },
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "next": "16.2.4",
+      "react": "19.2.5",
+      "react-dom": "19.2.5",
+      "@types/react": "19.2.14",
+      "@types/react-dom": "19.2.3",
+      "typescript": "5.6.3",
+      "@types/node": "22.7.5",
+      "tailwindcss": "4.2.4",
+      "@tailwindcss/postcss": "4.2.4",
+      "prettier-plugin-tailwindcss": "0.6.8",
+      "velite": "0.2.1",
+      "gray-matter": "4.0.3",
+      "class-variance-authority": "0.7.0",
+      "clsx": "2.1.1",
+      "tailwind-merge": "2.5.4",
+      "lucide-react": "0.454.0",
+      "@radix-ui/react-slot": "1.1.0",
+      "eslint": "9.13.0",
+      "prettier": "3.3.3",
+      "eslint-config-prettier": "9.1.0",
+      "eslint-plugin-simple-import-sort": "12.1.1",
+      "eslint-plugin-unused-imports": "4.1.4",
+      "@next/eslint-plugin-next": "16.2.4",
+      "typescript-eslint": "8.10.0",
+      "vitest": "2.1.3"
+    }
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint && bun run lint:md && bun run lint:knip",
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"**/*.mdx\" \"#**/node_modules/**\" \"#**/.next/**\" \"#**/.turbo/**\" \"#**/.velite/**\" \"#**/dist/**\" \"#**/out/**\"",
+    "lint:knip": "knip",
+    "lint:syncpack": "syncpack lint",
+    "lint:syncpack:fix": "syncpack fix-mismatches",
+    "lint:css": "stylelint \"**/*.css\" --ignore-path .gitignore",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules .turbo",
+    "prepare": "husky || true",
+    "bootstrap:apply": "bun run scripts/bootstrap-apply.ts",
+    "test:bootstrap": "bun run scripts/test-bootstrap.ts"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "19.5.0",
+    "@commitlint/config-conventional": "19.5.0",
+    "@commitlint/types": "19.5.0",
+    "@types/bun": "1.2.0",
+    "@types/node": "22.7.5",
+    "husky": "9.1.6",
+    "knip": "5.34.0",
+    "lint-staged": "15.2.10",
+    "markdownlint-cli2": "0.15.0",
+    "prettier": "3.3.3",
+    "prettier-plugin-tailwindcss": "0.6.8",
+    "stylelint": "16.10.0",
+    "stylelint-config-standard": "36.0.1",
+    "syncpack": "13.0.0",
+    "turbo": "2.2.3",
+    "typescript": "5.6.3",
+    "yaml": "2.6.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,mts,cts,js,jsx,mjs,cjs}": [
+      "prettier --write"
+    ],
+    "*.{json,css,yml,yaml,md,mdx}": [
+      "prettier --write"
+    ]
+  },
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "esbuild",
+    "sharp"
+  ]
+}

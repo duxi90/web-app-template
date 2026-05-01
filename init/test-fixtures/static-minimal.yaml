@@ -1,0 +1,9 @@
+# Minimal baseline acceptance: static export only, light lint, no infra, no extras.
+project_name: my-blog
+package_scope: "@acme"
+repo_owner: acme
+apply:
+  - app-web-static
+  - content-velite
+  - ui-shadcn
+  - lint-light

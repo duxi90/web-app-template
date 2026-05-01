@@ -1,0 +1,17 @@
+{
+  "$schema": "https://unpkg.com/syncpack@13/dist/schema.json",
+  "dependencyTypes": ["prod", "dev", "peer"],
+  "semverGroups": [
+    {
+      "label": "Pin exact versions everywhere",
+      "range": ""
+    }
+  ],
+  "versionGroups": [
+    {
+      "label": "Use catalog protocol for cataloged deps",
+      "dependencies": ["next", "react", "react-dom", "typescript", "tailwindcss"],
+      "pinVersion": "catalog:"
+    }
+  ]
+}

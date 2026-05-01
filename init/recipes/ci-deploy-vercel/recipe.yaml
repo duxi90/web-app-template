@@ -1,0 +1,26 @@
+id: ci-deploy-vercel
+title: "GHA: Vercel deploy via vercel-action"
+provides: [ci:vercel]
+requires: []
+conflicts: []
+
+files:
+  - src: "files/.github/workflows/deploy-vercel.yml"
+    dst: ".github/workflows/deploy-vercel.yml"
+
+patches: []
+
+env_required:
+  - key: VERCEL_TOKEN
+    doc: "Vercel API token (vercel.com/account/tokens). Add to GitHub Actions secrets."
+  - key: VERCEL_ORG_ID
+    doc: "Vercel team/user id (vercel.com/<team>/~/settings)."
+  - key: VERCEL_PROJECT_ID
+    doc: "Vercel project id (project Settings → General)."
+
+post:
+  - "echo 'Add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID to repo Actions secrets.'"
+
+docs: |
+  Zero-config Vercel deploys via the official vercel CLI in a GHA workflow.
+  Pull request → preview deploy; main → production deploy.

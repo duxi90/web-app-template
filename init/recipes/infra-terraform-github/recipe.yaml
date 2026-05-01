@@ -1,0 +1,23 @@
+id: infra-terraform-github
+title: "Terraform: GitHub repo settings + branch protection + Actions secrets"
+provides: [infra:gh]
+requires: []
+conflicts: []
+
+files:
+  - src: "files/infra/github/**"
+    dst: "infra/github/"
+
+patches: []
+
+env_required:
+  - key: GITHUB_TOKEN
+    doc: "PAT (or fine-grained token) with `repo` + `admin:org` scope. Required for `terraform apply`."
+
+post:
+  - "echo 'Edit infra/github/terraform.tfvars.example, copy to terraform.tfvars, then: cd infra/github && terraform init && terraform plan'"
+
+docs: |
+  Terraform-managed repo settings: branch protection on main, required
+  status checks, dismissable reviews, signed commits, and Actions secrets.
+  Useful for keeping repo policy in version control rather than the GitHub UI.

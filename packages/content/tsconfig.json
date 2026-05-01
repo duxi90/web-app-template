@@ -1,0 +1,13 @@
+{
+  "extends": "@repo/config-typescript/base",
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", ".velite", "velite.config.ts"],
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "noEmit": true,
+    "composite": false,
+    "declaration": false,
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
+  }
+}

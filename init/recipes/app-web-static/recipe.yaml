@@ -1,0 +1,14 @@
+id: app-web-static
+title: "Next.js 16 static export (matches baseline)"
+provides: [app:static]
+requires: []
+conflicts: []
+
+files: []
+patches: []
+env_required: []
+post: []
+
+docs: |
+  Next.js 16 with `output: 'export'`. Reads typed posts from @<scope>/content
+  and renders them at build time. Output goes to `apps/web-static/out/`.

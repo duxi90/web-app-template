@@ -1,0 +1,11 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      { "ignoreAtRules": ["theme", "variant", "layer", "apply", "config", "tailwind"] }
+    ],
+    "no-descending-specificity": null
+  },
+  "ignoreFiles": ["**/.next/**", "**/dist/**", "**/.turbo/**", "**/.velite/**"]
+}

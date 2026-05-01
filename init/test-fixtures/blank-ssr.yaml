@@ -1,0 +1,12 @@
+# --blank mode: SSR + workers + Cloudflare TF, no static demo.
+project_name: clean-slate
+package_scope: "@acme"
+repo_owner: acme
+apply:
+  - app-web-ssr
+  - app-workers-api
+  - content-mdx-only
+  - ui-tailwind-only
+  - infra-terraform-cloudflare
+  - ci-deploy-ssr
+  - lint-light

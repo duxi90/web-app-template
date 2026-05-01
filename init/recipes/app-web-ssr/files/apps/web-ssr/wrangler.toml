@@ -1,0 +1,21 @@
+name = "{{PROJECT_NAME}}-web-ssr"
+main = ".open-next/worker.js"
+compatibility_date = "2026-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Static assets emitted by OpenNext.
+assets = { directory = ".open-next/assets", binding = "ASSETS" }
+
+# Incremental cache for ISR.
+[[kv_namespaces]]
+binding = "NEXT_INC_CACHE_KV"
+id = "{{CF_KV_NAMESPACE_ID_PLACEHOLDER}}"
+
+# Optional: R2 bucket for user-uploaded assets / build artifacts.
+# Uncomment after creating the bucket via Terraform.
+# [[r2_buckets]]
+# binding = "R2"
+# bucket_name = "{{PROJECT_NAME}}-assets"
+
+[observability]
+enabled = true

@@ -1,0 +1,8 @@
+{{PROJECT_NAME}}
+{{PACKAGE_SCOPE}}
+bunfig
+opennextjs
+shadcn
+turborepo
+velite
+wrangler

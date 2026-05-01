@@ -1,0 +1,18 @@
+# Full opt-in: SSR + workers API + Cloudflare TF + GitHub TF + strict lint + spell + i18n + temporal.
+project_name: full-stack-app
+package_scope: "@acme"
+repo_owner: acme
+apply:
+  - app-web-ssr
+  - app-workers-api
+  - content-velite
+  - ui-shadcn
+  - infra-terraform-cloudflare
+  - infra-terraform-github
+  - ci-deploy-ssr
+  - ci-terraform
+  - lint-strict
+  - lint-cspell
+  - i18n-next-intl
+  - pkg-temporal-dates
+  - r2-client

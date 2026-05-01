@@ -1,0 +1,17 @@
+# Bun config — see https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Pin exact versions; use ^/~ explicitly when needed.
+exact = true
+# Run `postinstall` lifecycle scripts only for trusted packages.
+auto = "auto"
+
+[install.lockfile]
+save = true
+
+[install.scopes]
+# Add private registries here if needed.
+
+[run]
+# Forward signals (Ctrl-C) to scripts so dev servers shut down cleanly.
+silent = false

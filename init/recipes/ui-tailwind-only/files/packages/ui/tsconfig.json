@@ -1,0 +1,6 @@
+{
+  "extends": "{{PACKAGE_SCOPE}}/config-typescript/library",
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": { "outDir": "dist", "rootDir": "src" }
+}

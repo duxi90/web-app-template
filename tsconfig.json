@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/config-typescript" },
+    { "path": "./packages/config-tailwind" },
+    { "path": "./packages/config-eslint" },
+    { "path": "./packages/ui" },
+    { "path": "./packages/content" },
+    { "path": "./apps/web-static" }
+  ]
+}

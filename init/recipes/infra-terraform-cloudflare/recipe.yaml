@@ -1,0 +1,28 @@
+id: infra-terraform-cloudflare
+title: "Terraform: Cloudflare R2 buckets + Workers + DNS"
+provides: [infra:cf]
+requires: []
+conflicts: []
+
+files:
+  - src: "files/infra/cloudflare/**"
+    dst: "infra/cloudflare/"
+
+patches: []
+
+env_required:
+  - key: TF_VAR_cloudflare_api_token
+    doc: "Cloudflare API token with R2:Edit + DNS:Edit + Workers:Edit. Required for `terraform apply`."
+  - key: TF_VAR_cloudflare_account_id
+    doc: "Cloudflare account id."
+  - key: TF_VAR_zone_id
+    doc: "Cloudflare zone id (only if managing DNS for the project domain)."
+
+post:
+  - "echo 'Edit infra/cloudflare/terraform.tfvars.example, copy to terraform.tfvars, then: cd infra/cloudflare && terraform init && terraform plan'"
+
+docs: |
+  Flat Terraform layout (main.tf + variables.tf + outputs.tf, no nested modules).
+  Manages an R2 assets bucket with custom domain; commented stubs for Worker
+  routes and DNS records. State is local by default; uncomment the R2-backed
+  S3-compatible backend in backend.tf to use remote state.

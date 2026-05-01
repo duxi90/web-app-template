@@ -1,0 +1,31 @@
+{
+  "name": "@repo/content",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "src",
+    ".velite"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./posts": "./src/posts.ts"
+  },
+  "scripts": {
+    "build": "velite build",
+    "dev": "velite dev",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .velite .turbo"
+  },
+  "dependencies": {
+    "velite": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/config-eslint": "workspace:*",
+    "@repo/config-typescript": "workspace:*",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,25 @@
+id: ci-deploy-static
+title: "GHA: build & deploy static export to Cloudflare Workers Static Assets"
+provides: [ci:static]
+requires: [app:static]
+conflicts: []
+
+files:
+  - src: "files/.github/workflows/deploy-static.yml"
+    dst: ".github/workflows/deploy-static.yml"
+  - src: "files/apps/web-static/wrangler.toml"
+    dst: "apps/web-static/wrangler.toml"
+
+patches: []
+
+env_required:
+  - key: CLOUDFLARE_ACCOUNT_ID
+    doc: "Cloudflare account id."
+  - key: CLOUDFLARE_API_TOKEN
+    doc: "Token with Workers Scripts:Edit (no R2 needed for static-only)."
+
+post: []
+
+docs: |
+  Builds `apps/web-static` with `next build` (output: 'export') and uploads
+  the `out/` directory to Cloudflare Workers Static Assets via wrangler.

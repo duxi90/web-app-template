@@ -1,0 +1,18 @@
+id: lint-light
+title: "Light lint stack (matches baseline)"
+provides: [lint:light]
+requires: []
+conflicts: [lint-strict]
+
+files: []
+patches: []
+env_required: []
+post: []
+
+docs: |
+  No-op recipe — the seed's baseline already provides:
+    - ESLint flat config (next/core-web-vitals + next/typescript style)
+    - simple-import-sort + unused-imports
+    - prettier + prettier-plugin-tailwindcss
+    - husky + lint-staged
+  This recipe exists so the question YAML can declare it as a default.

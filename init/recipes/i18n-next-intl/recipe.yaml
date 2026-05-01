@@ -1,0 +1,28 @@
+id: i18n-next-intl
+title: "next-intl: i18n with messages/ dir"
+provides: [i18n]
+requires: []
+conflicts: []
+
+files:
+  - src: "files/messages/**"
+    dst: "messages/"
+  - src: "files/i18n/**"
+    dst: "i18n/"
+
+patches:
+  - file: "package.json"
+    op: json-merge
+    path: "$.dependencies"
+    value:
+      "next-intl": "3.26.0"
+
+env_required: []
+
+post:
+  - 'echo ''Wrap your next.config.ts with createNextIntlPlugin("./i18n/request.ts"). See https://next-intl.dev/docs/getting-started/app-router'''
+
+docs: |
+  next-intl boilerplate: locale config, request handler, en/es starter
+  messages. Apps need a small change to next.config.ts (the agent wraps it
+  with createNextIntlPlugin).

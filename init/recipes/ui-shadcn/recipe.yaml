@@ -1,0 +1,16 @@
+id: ui-shadcn
+title: "shadcn/ui + Radix primitives (matches baseline)"
+provides: [ui:components]
+requires: []
+conflicts: [ui-tailwind-only]
+
+files: []
+patches: []
+env_required: []
+post:
+  - "echo 'Add components: cd packages/ui && bunx shadcn@latest add <name>'"
+
+docs: |
+  Minimal shadcn/ui baseline (Button + cn util). Add more components with
+  `bunx shadcn@latest add <name>` from inside packages/ui — components.json
+  is preconfigured for the workspace layout.

@@ -1,0 +1,25 @@
+{
+  "name": "workers-api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "echo 'workers-api builds via wrangler at deploy time'",
+    "deploy": "wrangler deploy",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .wrangler .turbo"
+  },
+  "dependencies": {
+    "hono": "4.6.5"
+  },
+  "devDependencies": {
+    "{{PACKAGE_SCOPE}}/config-eslint": "workspace:*",
+    "{{PACKAGE_SCOPE}}/config-typescript": "workspace:*",
+    "@cloudflare/workers-types": "4.20241022.0",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "wrangler": "4.0.0"
+  }
+}

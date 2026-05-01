@@ -1,0 +1,18 @@
+id: ui-tailwind-only
+title: "Plain Tailwind primitives (no component library)"
+provides: [ui:bare]
+requires: []
+conflicts: [ui-shadcn]
+
+files:
+  - src: "files/packages/ui/**"
+    dst: "packages/ui/"
+
+patches: []
+env_required: []
+post: []
+
+docs: |
+  Replaces packages/ui with a bare Tailwind setup — just the cn() utility,
+  no shadcn components, no Radix dependency. Lighter footprint for friends
+  who prefer to write their own components.

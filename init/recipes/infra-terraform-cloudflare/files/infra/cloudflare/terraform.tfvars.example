@@ -1,0 +1,7 @@
+# Copy to terraform.tfvars and fill in. terraform.tfvars is gitignored.
+cloudflare_account_id = "{{CF_ACCOUNT_ID_PLACEHOLDER}}"
+cloudflare_api_token  = "set via TF_VAR_cloudflare_api_token environment variable instead"
+zone_id               = ""
+r2_location           = "WEUR"
+assets_domain         = ""
+app_domain            = ""

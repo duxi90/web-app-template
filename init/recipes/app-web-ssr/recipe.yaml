@@ -1,0 +1,29 @@
+id: app-web-ssr
+title: "Next.js 16 SSR on Cloudflare Workers via OpenNext"
+provides: [app:ssr]
+requires: []
+conflicts: []
+
+files:
+  - src: "files/apps/web-ssr/**"
+    dst: "apps/web-ssr/"
+
+patches:
+  - file: "package.json"
+    op: json-merge
+    path: "$.workspaces.packages"
+    value: ["apps/web-ssr"]
+
+env_required:
+  - key: CLOUDFLARE_ACCOUNT_ID
+    doc: "Cloudflare account id (Workers + R2)."
+  - key: CLOUDFLARE_API_TOKEN
+    doc: "Token with `Workers Scripts:Edit`, `Account Settings:Read`, `R2:Edit`."
+
+post:
+  - "echo 'Run: bun run --filter web-ssr preview to test locally with wrangler.'"
+
+docs: |
+  Adds `apps/web-ssr/` — Next.js 16 + @opennextjs/cloudflare adapter.
+  Wrangler bindings: R2 bucket (assets), KV namespace (incremental cache).
+  Local preview: `bun run --filter web-ssr preview`.

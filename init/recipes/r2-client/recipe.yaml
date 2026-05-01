@@ -1,0 +1,27 @@
+id: r2-client
+title: "Typed S3-compatible client for Cloudflare R2"
+provides: [pkg:r2]
+requires: []
+conflicts: []
+
+files:
+  - src: "files/packages/r2-client/**"
+    dst: "packages/r2-client/"
+
+patches: []
+
+env_required:
+  - key: CLOUDFLARE_ACCOUNT_ID
+    doc: "Used for the R2 endpoint URL."
+  - key: R2_ACCESS_KEY_ID
+    doc: "R2 token access key (https://dash.cloudflare.com → R2 → Manage Tokens)."
+  - key: R2_SECRET_ACCESS_KEY
+    doc: "R2 token secret."
+
+post: []
+
+docs: |
+  Build-time + runtime helper for Cloudflare R2. Wraps @aws-sdk/client-s3
+  (R2 is S3-compatible) for build-time uploads (e.g., MDX images). Inside
+  Workers, prefer the native R2 binding from wrangler.toml — this client is
+  for scripts and Node.js callers.

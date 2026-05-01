@@ -1,0 +1,21 @@
+id: content-mdx-only
+title: "Plain @next/mdx + gray-matter server lib"
+provides: [content:plain]
+requires: []
+conflicts: [content-velite]
+
+files:
+  - src: "files/packages/content/**"
+    dst: "packages/content/"
+
+patches: []
+
+env_required: []
+
+post:
+  - "echo 'Add content under packages/content/posts/. Read via @{{PACKAGE_SCOPE}}/content.'"
+
+docs: |
+  Replaces the Velite pipeline with a hand-rolled gray-matter server lib.
+  Lighter — no build step, just `fs.readdir` at request/build time.
+  Pattern lifted from cppserbia.org's events-server.ts.

@@ -1,0 +1,22 @@
+id: ci-terraform
+title: "GHA: terraform fmt/validate/tflint/tfsec + plan/apply"
+provides: [ci:tf]
+requires: []
+conflicts: []
+
+files:
+  - src: "files/.github/workflows/terraform.yml"
+    dst: ".github/workflows/terraform.yml"
+
+patches: []
+
+env_required:
+  - key: TF_VAR_cloudflare_api_token
+    doc: "Required when applying Cloudflare TF; add as a GHA secret."
+
+post: []
+
+docs: |
+  Runs `terraform fmt -check`, `terraform validate`, `tflint`, and `tfsec`
+  on every PR; plans on PR; applies on push to main behind a manual
+  `production` environment approval gate.

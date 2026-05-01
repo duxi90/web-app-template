@@ -1,0 +1,37 @@
+id: lint-cspell
+title: "cspell with multilingual dictionaries"
+provides: [lint:spell]
+requires: []
+conflicts: []
+
+files:
+  - src: "files/cspell.json"
+    dst: "cspell.json"
+  - src: "files/.cspell/project-terms.txt"
+    dst: ".cspell/project-terms.txt"
+
+patches:
+  - file: "package.json"
+    op: json-merge
+    path: "$.devDependencies"
+    value:
+      "cspell": "8.16.0"
+      "@cspell/dict-fullstack": "3.2.3"
+      "@cspell/dict-markdown": "2.0.7"
+      "@cspell/dict-shell": "1.1.0"
+  - file: "package.json"
+    op: json-merge
+    path: "$.scripts"
+    value:
+      "spell": 'cspell --no-progress --no-summary "**/*.{ts,tsx,md,mdx,json,yml,yaml}"'
+
+env_required: []
+
+post:
+  - "echo 'Add project-specific terms to .cspell/project-terms.txt. Add language-specific dicts in cspell.json `dictionaries`.'"
+
+docs: |
+  cspell with project-terms file and a starter dictionary set. Pattern lifted
+  from cppserbia.org's setup — works well for sites with non-English content
+  (add a `<lang>-terms.txt` file and an `ignoreRegExpList` entry for the
+  script's Unicode range).

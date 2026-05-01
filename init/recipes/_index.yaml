@@ -1,0 +1,106 @@
+# Recipe registry. The bootstrap agent reads this to resolve dependencies and
+# conflicts before applying. Each recipe directory under `init/recipes/<id>/`
+# contains a `recipe.yaml` with the full per-recipe manifest (files, patches,
+# env_required, post hooks).
+#
+# Keys here are intentionally minimal — just enough for dependency resolution.
+
+recipes:
+  # Apps
+  app-web-static:
+    title: "Next.js 16 static export (matches baseline)"
+    provides: [app:static]
+    requires: []
+    conflicts: []
+  app-web-ssr:
+    title: "Next.js 16 SSR on Cloudflare Workers via OpenNext"
+    provides: [app:ssr]
+    requires: []
+    conflicts: []
+  app-workers-api:
+    title: "Standalone Cloudflare Worker for backend APIs"
+    provides: [worker:api]
+    requires: []
+    conflicts: []
+
+  # Content
+  content-velite:
+    title: "Velite — Zod-typed content layer (matches baseline)"
+    provides: [content:typed]
+    requires: []
+    conflicts: [content-mdx-only]
+  content-mdx-only:
+    title: "Plain @next/mdx + gray-matter server lib"
+    provides: [content:plain]
+    requires: []
+    conflicts: [content-velite]
+
+  # UI
+  ui-shadcn:
+    title: "shadcn/ui + Radix + lucide (matches baseline)"
+    provides: [ui:components]
+    requires: []
+    conflicts: [ui-tailwind-only]
+  ui-tailwind-only:
+    title: "Plain Tailwind primitives (no component library)"
+    provides: [ui:bare]
+    requires: []
+    conflicts: [ui-shadcn]
+
+  # Infra
+  infra-terraform-cloudflare:
+    title: "Terraform: Cloudflare R2 / Workers / DNS"
+    provides: [infra:cf]
+    requires: []
+    conflicts: []
+  infra-terraform-github:
+    title: "Terraform: GitHub repo settings + Actions secrets"
+    provides: [infra:gh]
+    requires: []
+    conflicts: []
+
+  # CI
+  ci-deploy-static:
+    title: "GHA: build & deploy static export to Cloudflare Workers Assets"
+    provides: [ci:static]
+    requires: [app:static]
+    conflicts: []
+  ci-deploy-ssr:
+    title: "GHA: opennext build → wrangler deploy"
+    provides: [ci:ssr]
+    requires: [app:ssr]
+    conflicts: []
+  ci-deploy-vercel:
+    title: "GHA: Vercel deploy via vercel-action"
+    provides: [ci:vercel]
+    requires: []
+    conflicts: []
+  ci-terraform:
+    title: "GHA: terraform fmt/validate/tflint/tfsec + plan/apply"
+    provides: [ci:tf]
+    requires: []
+    conflicts: []
+
+  # Lint
+  lint-light:
+    title: "Light lint stack (matches baseline; strict tier is also baseline)"
+    provides: [lint:light]
+    requires: []
+    conflicts: []
+  lint-cspell:
+    title: "cspell with multilingual dictionaries"
+    provides: [lint:spell]
+    requires: []
+    conflicts: []
+
+  # Misc packages
+  i18n-next-intl:
+    title: "next-intl i18n with messages/ dir"
+    provides: [i18n]
+    requires: []
+    conflicts: []
+  r2-client:
+    title: "Typed S3-compatible client for Cloudflare R2"
+    provides: [pkg:r2]
+    requires: []
+    conflicts: []

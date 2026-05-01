@@ -1,0 +1,14 @@
+id: content-velite
+title: "Velite — Zod-typed MDX content layer (matches baseline)"
+provides: [content:typed]
+requires: []
+conflicts: [content-mdx-only]
+
+files: []
+patches: []
+env_required: []
+post: []
+
+docs: |
+  Velite reads MDX from packages/content/posts/, validates frontmatter via
+  Zod, and emits typed JSON to .velite/. Apps import via `@<scope>/content`.

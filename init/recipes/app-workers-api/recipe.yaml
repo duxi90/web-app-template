@@ -1,0 +1,24 @@
+id: app-workers-api
+title: "Standalone Cloudflare Worker for backend APIs"
+provides: [worker:api]
+requires: []
+conflicts: []
+
+files:
+  - src: "files/apps/workers-api/**"
+    dst: "apps/workers-api/"
+
+patches: []
+
+env_required:
+  - key: CLOUDFLARE_ACCOUNT_ID
+    doc: "Cloudflare account id."
+  - key: CLOUDFLARE_API_TOKEN
+    doc: "Token with Workers Scripts:Edit."
+
+post: []
+
+docs: |
+  A dependency-free Cloudflare Worker scaffold for backend APIs (auth,
+  webhooks, GraphQL, etc.). Uses Hono for routing. Deploy with
+  `cd apps/workers-api && bunx wrangler deploy`.

@@ -1,0 +1,26 @@
+{
+  "name": "{{PACKAGE_SCOPE}}/r2-client",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.682.0"
+  },
+  "devDependencies": {
+    "{{PACKAGE_SCOPE}}/config-eslint": "workspace:*",
+    "{{PACKAGE_SCOPE}}/config-typescript": "workspace:*",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

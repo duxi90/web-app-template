@@ -1,0 +1,38 @@
+{
+  "name": "web-ssr",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "build:cf": "opennextjs-cloudflare build",
+    "preview": "opennextjs-cloudflare build && wrangler dev",
+    "deploy": "opennextjs-cloudflare build && wrangler deploy",
+    "lint": "next lint --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next .open-next .turbo"
+  },
+  "dependencies": {
+    "{{PACKAGE_SCOPE}}/content": "workspace:*",
+    "{{PACKAGE_SCOPE}}/ui": "workspace:*",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "{{PACKAGE_SCOPE}}/config-eslint": "workspace:*",
+    "{{PACKAGE_SCOPE}}/config-tailwind": "workspace:*",
+    "{{PACKAGE_SCOPE}}/config-typescript": "workspace:*",
+    "@cloudflare/workers-types": "4.20241022.0",
+    "@opennextjs/cloudflare": "1.0.0",
+    "@tailwindcss/postcss": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-next": "16.0.0",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "wrangler": "4.0.0"
+  }
+}

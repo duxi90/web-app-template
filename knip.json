@@ -1,0 +1,40 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignoreDependencies": [
+    "next",
+    "tailwindcss",
+    "@tailwindcss/postcss",
+    "@repo/config-typescript",
+    "@repo/config-tailwind",
+    "@commitlint/cli",
+    "lint-staged"
+  ],
+  "workspaces": {
+    ".": {
+      "entry": ["scripts/*.ts"],
+      "project": ["scripts/**/*.ts"]
+    },
+    "apps/*": {
+      "entry": [
+        "next.config.ts",
+        "next-env.d.ts",
+        "app/**/page.{ts,tsx}",
+        "app/**/layout.{ts,tsx}",
+        "app/**/route.ts",
+        "app/**/loading.tsx",
+        "app/**/not-found.tsx",
+        "app/**/error.tsx"
+      ]
+    },
+    "packages/ui": {
+      "entry": ["src/index.ts", "src/components/**/*.tsx"]
+    },
+    "packages/content": {
+      "entry": ["src/index.ts", "velite.config.ts"]
+    },
+    "packages/config-*": {
+      "entry": ["*.{json,mjs,ts,css}"],
+      "project": ["*.{json,mjs,ts,css}"]
+    }
+  }
+}

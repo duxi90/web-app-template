@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Dark-mode strategy: class-based, toggled by next-themes / system preference. */
+@variant dark (&:where(.dark, .dark *));
+
+/* Design tokens. Override per-app by re-declaring inside the consuming app's globals.css. */
+@theme {
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(15% 0.01 270);
+  --color-muted: oklch(96% 0.005 270);
+  --color-muted-foreground: oklch(45% 0.01 270);
+  --color-border: oklch(91% 0.005 270);
+  --color-input: oklch(91% 0.005 270);
+  --color-ring: oklch(60% 0.15 250);
+  --color-primary: oklch(40% 0.15 250);
+  --color-primary-foreground: oklch(98% 0 0);
+  --color-secondary: oklch(96% 0.005 270);
+  --color-secondary-foreground: oklch(20% 0.01 270);
+  --color-accent: oklch(96% 0.005 270);
+  --color-accent-foreground: oklch(20% 0.01 270);
+  --color-destructive: oklch(55% 0.22 25);
+  --color-destructive-foreground: oklch(98% 0 0);
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(15% 0.01 270);
+  --color-popover: oklch(100% 0 0);
+  --color-popover-foreground: oklch(15% 0.01 270);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --container-prose: 65ch;
+}
+
+@layer base {
+  .dark {
+    --color-background: oklch(15% 0.01 270);
+    --color-foreground: oklch(98% 0 0);
+    --color-muted: oklch(20% 0.01 270);
+    --color-muted-foreground: oklch(65% 0.01 270);
+    --color-border: oklch(25% 0.01 270);
+    --color-input: oklch(25% 0.01 270);
+    --color-card: oklch(18% 0.01 270);
+    --color-card-foreground: oklch(98% 0 0);
+    --color-popover: oklch(18% 0.01 270);
+    --color-popover-foreground: oklch(98% 0 0);
+    --color-primary: oklch(70% 0.15 250);
+    --color-primary-foreground: oklch(15% 0.01 270);
+    --color-secondary: oklch(25% 0.01 270);
+    --color-secondary-foreground: oklch(98% 0 0);
+    --color-accent: oklch(25% 0.01 270);
+    --color-accent-foreground: oklch(98% 0 0);
+  }
+
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: light dark;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklch, var(--color-primary) 30%, transparent);
+  }
+}

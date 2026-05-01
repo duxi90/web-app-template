@@ -1,0 +1,32 @@
+{
+  "name": "{{PACKAGE_SCOPE}}/content",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "src",
+    "posts"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./server": "./src/posts-server.ts"
+  },
+  "scripts": {
+    "build": "echo 'content-mdx-only has no build step'",
+    "dev": "echo 'content-mdx-only watches via Next.js'",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo"
+  },
+  "dependencies": {
+    "gray-matter": "catalog:"
+  },
+  "devDependencies": {
+    "{{PACKAGE_SCOPE}}/config-eslint": "workspace:*",
+    "{{PACKAGE_SCOPE}}/config-typescript": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,164 @@
+# Bootstrap interview script. Walked top-down by the bootstrap agent.
+# Schema: id, prompt, type, [options], [default], [validate], [depends_on],
+#         [apply_if_true], [apply], [remove], [derive].
+#
+# Types:
+#   string  — free text (with optional regex `validate`)
+#   bool    — yes/no; recipes in `apply_if_true` are added when answer is yes
+#   single  — exactly one option; option's `apply`/`remove` lists are merged in
+#   multi   — zero-or-more options; each chosen option's `apply` list is merged
+#
+# `depends_on` shapes:
+#   { has_any_of: [recipe-id, …] }  — only ask if any of these recipes already in apply set
+#   { has_all_of: [recipe-id, …] }  — only ask if all are present
+#   { answer: { <question-id>: <value> } } — only ask if a prior answer matches
+#
+# `derive` (on an option): { from: <prior-question-id>, map: { <prior-value>: [recipe-id, …] } }
+#   — Recipes added depend on a prior question's answer. Used to gate Cloudflare
+#     deploy recipes by render_mode without requiring an extra question.
+
+- id: project_name
+  prompt: "Project name (lowercase, used as repo dir + npm scope)?"
+  type: string
+  validate: "^[a-z][a-z0-9-]+$"
+
+- id: package_scope
+  prompt: "Internal package scope? (e.g. `@acme` for `@acme/ui`)"
+  type: string
+  validate: "^@[a-z][a-z0-9-]+$"
+  default: "@repo"
+
+- id: render_mode
+  prompt: "How should pages render?"
+  type: single
+  default: static
+  options:
+    - id: static
+      label: "Static only"
+      description: "Pre-render everything at build time (next export). Cheapest hosting, fits blogs and marketing sites."
+      apply: [app-web-static]
+      remove: [app-web-ssr]
+    - id: ssr
+      label: "SSR on Cloudflare Workers"
+      description: "Server-rendered Next.js via @opennextjs/cloudflare. Needed for dynamic routes, auth, request-time data."
+      apply: [app-web-ssr]
+      remove: [app-web-static]
+    - id: both
+      label: "Both apps"
+      description: "Two Next.js apps share UI + content packages. Useful when you want a static marketing site + an SSR'd app."
+      apply: [app-web-ssr, app-web-static]
+
+- id: backend_worker
+  prompt: "Add a Cloudflare Worker for backend APIs (separate from the Next.js app)?"
+  type: bool
+  default: false
+  apply_if_true: [app-workers-api]
+
+- id: content_engine
+  prompt: "How should Markdown/MDX content be processed?"
+  type: single
+  default: velite
+  options:
+    - id: velite
+      label: "Velite (Zod-typed, recommended)"
+      description: "Build-time pipeline that emits typed JSON from Markdown. Best DX for blogs."
+      apply: [content-velite]
+      remove: [content-mdx-only]
+    - id: mdx-only
+      label: "Plain @next/mdx + gray-matter"
+      description: "No build-time content layer; small server lib reads .md files. Minimum deps."
+      apply: [content-mdx-only]
+      remove: [content-velite]
+
+- id: ui_layer
+  prompt: "Component library on top of Tailwind?"
+  type: single
+  default: shadcn
+  options:
+    - id: shadcn
+      label: "shadcn/ui + Radix (recommended)"
+      description: "Copy-in components owned in packages/ui. De-facto standard."
+      apply: [ui-shadcn]
+      remove: [ui-tailwind-only]
+    - id: bare
+      label: "Plain Tailwind primitives"
+      description: "No component library — just Tailwind utilities. Smallest footprint."
+      apply: [ui-tailwind-only]
+      remove: [ui-shadcn]
+
+- id: deploy_target
+  prompt: "Where will this be deployed?"
+  type: single
+  default: cloudflare
+  options:
+    - id: cloudflare
+      label: "Cloudflare (Workers/Pages)"
+      description: "Wrangler + OpenNext for SSR; Workers Static Assets for static. Good free tier."
+      derive:
+        from: render_mode
+        map:
+          static: [ci-deploy-static]
+          ssr: [ci-deploy-ssr]
+          both: [ci-deploy-static, ci-deploy-ssr]
+    - id: vercel
+      label: "Vercel"
+      description: "Zero-config Next.js deploys. Good for blogs and small sites."
+      apply: [ci-deploy-vercel]
+    - id: none
+      label: "No deploy automation yet"
+      description: "Skip deploy workflows. Add them later."
+      apply: []
+
+- id: terraform_scope
+  prompt: "What should Terraform manage? (multi-select; pick none to skip TF)"
+  type: multi
+  default: []
+  depends_on:
+    answer: { deploy_target: cloudflare }
+  options:
+    - id: cf-r2
+      label: "Cloudflare R2 buckets"
+      description: "For static assets, image hosting, build artifacts."
+      apply: [infra-terraform-cloudflare]
+    - id: cf-workers
+      label: "Cloudflare Workers + Pages routes"
+      description: "Worker scripts, custom domains, route patterns."
+      apply: [infra-terraform-cloudflare]
+    - id: cf-dns
+      label: "Cloudflare DNS records"
+      description: "Manage DNS in Terraform if your domain is on Cloudflare."
+      apply: [infra-terraform-cloudflare]
+    - id: gh-repo
+      label: "GitHub repo settings"
+      description: "Branch protection, Actions secrets, required checks."
+      apply: [infra-terraform-github]
+
+- id: ci_terraform
+  prompt: "Add a CI workflow for Terraform plan/apply?"
+  type: bool
+  default: true
+  depends_on:
+    has_any_of: [infra-terraform-cloudflare, infra-terraform-github]
+  apply_if_true: [ci-terraform]
+
+- id: r2_runtime_client
+  prompt: "Need a typed R2 client (S3-compatible) for runtime/build-time uploads?"
+  type: bool
+  default: false
+  depends_on:
+    has_any_of: [app-web-ssr, app-workers-api, infra-terraform-cloudflare]
+  apply_if_true: [r2-client]
+
+- id: spell_check
+  prompt: "Add multilingual spell-checking (cspell)?"
+  type: bool
+  default: false
+  apply_if_true: [lint-cspell]
+
+- id: i18n
+  prompt: "Add i18n via next-intl?"
+  type: bool
+  default: false
+  depends_on:
+    has_any_of: [app-web-ssr, app-web-static]
+  apply_if_true: [i18n-next-intl]

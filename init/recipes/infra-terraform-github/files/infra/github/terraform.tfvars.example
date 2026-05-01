@@ -1,0 +1,4 @@
+repo_owner            = "{{REPO_OWNER}}"
+repo_name             = "{{PROJECT_NAME}}"
+cloudflare_api_token  = "" # set via TF_VAR_cloudflare_api_token instead
+cloudflare_account_id = ""

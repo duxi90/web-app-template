@@ -1,0 +1,10 @@
+{
+  "extends": "@repo/config-typescript/base",
+  "include": ["postcss.config.mjs"],
+  "compilerOptions": {
+    "noEmit": true,
+    "composite": false,
+    "allowJs": true,
+    "checkJs": false
+  }
+}

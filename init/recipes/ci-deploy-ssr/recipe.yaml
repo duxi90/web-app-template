@@ -1,0 +1,23 @@
+id: ci-deploy-ssr
+title: "GHA: build & deploy SSR app to Cloudflare Workers"
+provides: [ci:ssr]
+requires: [app:ssr]
+conflicts: []
+
+files:
+  - src: "files/.github/workflows/deploy-ssr.yml"
+    dst: ".github/workflows/deploy-ssr.yml"
+
+patches: []
+
+env_required:
+  - key: CLOUDFLARE_ACCOUNT_ID
+    doc: "Same as app-web-ssr."
+  - key: CLOUDFLARE_API_TOKEN
+    doc: "Same as app-web-ssr."
+
+post: []
+
+docs: |
+  Builds with @opennextjs/cloudflare and deploys via wrangler. Triggers on
+  push to main; preview-deploys on PRs (named after the branch).
