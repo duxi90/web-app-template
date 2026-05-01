@@ -41,7 +41,7 @@ export async function putObject(
       Bucket: bucket,
       Key: key,
       Body: body,
-      ContentType: contentType,
+      ...(contentType !== undefined && { ContentType: contentType }),
     }),
   );
 }

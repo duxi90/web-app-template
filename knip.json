@@ -2,12 +2,20 @@
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "ignoreDependencies": [
     "next",
+    "next-intl",
     "tailwindcss",
     "@tailwindcss/postcss",
     "@repo/config-typescript",
     "@repo/config-tailwind",
+    "@repo/ui",
+    "@acme/config-typescript",
+    "@acme/config-tailwind",
+    "@acme/ui",
     "@commitlint/cli",
-    "lint-staged"
+    "lint-staged",
+    "@cloudflare/workers-types",
+    "@opennextjs/cloudflare",
+    "wrangler"
   ],
   "workspaces": {
     ".": {
@@ -18,6 +26,9 @@
       "entry": [
         "next.config.ts",
         "next-env.d.ts",
+        "open-next.config.ts",
+        "wrangler.toml",
+        "src/index.ts",
         "app/**/page.{ts,tsx}",
         "app/**/layout.{ts,tsx}",
         "app/**/route.ts",

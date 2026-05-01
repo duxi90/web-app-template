@@ -1,10 +1,8 @@
 import { Hono } from "hono";
 
-interface Bindings {
-  // Add R2/KV/D1/etc. bindings here as you uncomment them in wrangler.toml.
-  // ASSETS: R2Bucket;
-  // KV: KVNamespace;
-}
+// Bindings interface — extend with R2Bucket / KVNamespace / D1Database etc. as you
+// add them to wrangler.toml. Empty for now; cast `unknown` keeps eslint happy.
+type Bindings = Record<string, unknown>;
 
 const app = new Hono<{ Bindings: Bindings }>();
 

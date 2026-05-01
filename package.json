@@ -48,7 +48,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint && bun run lint:md && bun run lint:knip",
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"**/*.mdx\" \"#**/node_modules/**\" \"#**/.next/**\" \"#**/.turbo/**\" \"#**/.velite/**\" \"#**/dist/**\" \"#**/out/**\"",
-    "lint:knip": "knip",
+    "lint:knip": "knip --no-config-hints",
     "lint:syncpack": "syncpack lint",
     "lint:syncpack:fix": "syncpack fix-mismatches",
     "lint:css": "stylelint \"**/*.css\" --ignore-path .gitignore",

@@ -1,5 +1,11 @@
 {
   "extends": "{{PACKAGE_SCOPE}}/config-typescript/node",
   "include": ["src/**/*.ts"],
-  "compilerOptions": { "outDir": "dist", "rootDir": "src", "noEmit": false, "composite": true }
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "noEmit": true,
+    "composite": false,
+    "declaration": false
+  }
 }
